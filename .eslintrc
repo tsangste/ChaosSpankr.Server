@@ -2,7 +2,7 @@
     "rules": {
         "semi": [
             "error",
-            "always"
+            "never"
         ]
     },
     "env": {
