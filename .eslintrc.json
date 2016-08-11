@@ -1,5 +1,13 @@
 {
     "rules": {
+        "indent": [
+            "error",
+            4,
+            {
+                "MemberExpression": 1,
+                "SwitchCase": 1
+            }
+        ],
         "semi": [
             "error",
             "never"
