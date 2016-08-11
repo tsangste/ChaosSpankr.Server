@@ -1,11 +1,11 @@
-var express = require('express');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var express = require('express')
+var logger = require('morgan')
+var cookieParser = require('cookie-parser')
+var bodyParser = require('body-parser')
 
-var routes = require('./routes/index');
+var routes = require('./routes/index')
 
-var app = express();
+var app = express()
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
