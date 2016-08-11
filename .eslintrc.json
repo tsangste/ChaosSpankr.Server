@@ -2,8 +2,9 @@
     "rules": {
         "semi": [
             "error",
-            "always"
-        ]
+            "never"
+        ],
+        "no-console": 0
     },
     "env": {
         "es6": true,
