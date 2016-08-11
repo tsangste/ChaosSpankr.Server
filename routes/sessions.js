@@ -56,7 +56,7 @@ router.get('/:sessionId', (req, res) => {
  */
 router.put('/', (req, res) => {
     let sessionId = req.body.sessionId || ''
-    let state =  req.body.state || ''
+    let state = req.body.state || ''
 
     if (sessionId === '') {
         res.status(500)
@@ -65,9 +65,9 @@ router.put('/', (req, res) => {
         return
     }
 
-    var isValidState =sessionConstants.VALID_STATES.indexOf(state) > -1
+    var isValidState = sessionConstants.VALID_STATES.indexOf(state) > -1
 
-    if(!isValidState){
+    if (!isValidState) {
         res.status(500)
         res.json({ message: "State is not valid" })
 
@@ -81,7 +81,7 @@ router.put('/', (req, res) => {
         return
     }
 
-    sessionStore.state = state;
+    sessionStore.state = state
 
     res.json(sessionStore)
 })
@@ -116,13 +116,11 @@ router.delete('/', (req, res) => {
         return
     }
 
-    activeSession = {
-        id: "",
-        state: null,
-        users: []
-    }
+    sessionStore.id = ""
+    sessionStore.state = null,
+    sessionStore.users = []
 
-    res.status(200);
+    res.status(200)
     res.json({})
 })
 
