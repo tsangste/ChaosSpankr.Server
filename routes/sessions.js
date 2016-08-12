@@ -9,7 +9,6 @@ let router = express.Router()
     Start a new session
     exampleCall: curl -H "Content-Type: application/json" -X POST -d '{}' http://localhost:3000/sessions/
  */
-
 router.post('/', (req, res) => {
     if (sessionStore.id !== '') {
         res.status(500)
@@ -18,7 +17,7 @@ router.post('/', (req, res) => {
         return
     }
 
-    var id = shortid.generate()
+    let id = shortid.generate()
 
     sessionStore.id = id
     sessionStore.state = sessionConstants.STATES.WAITING_FOR_USERS
