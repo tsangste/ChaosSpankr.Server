@@ -1,14 +1,23 @@
 {
-    "rules": {
-        "semi": [
-            "error",
-            "never"
-        ],
-        "no-console": 0
-    },
-    "env": {
-        "es6": true,
-        "node": true
-    },
-    "extends": "eslint:recommended"
+  "rules": {
+    "indent": [
+      "error",
+      2,
+      {
+        "MemberExpression": 1,
+        "SwitchCase": 1
+      }
+    ],
+    "semi": [
+      "error",
+      "never"
+    ],
+    "no-console": 0,
+    "no-var": 1
+  },
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "extends": "eslint:recommended"
 }
