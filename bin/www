@@ -25,7 +25,8 @@ var server = http.createServer(app)
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port)
+server.listen(3000, "0.0.0.0"); // makes it available accross the network: http://stackoverflow.com/a/15493030/3104762
+
 server.on('error', onError)
 server.on('listening', onListening)
 
