@@ -2,10 +2,14 @@ var express = require('express')
 var logger = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
+let cors = require('cors')
 
 var routes = require('./routes/index')
+var sessionRoutes = require('./routes/sessions')
 
 var app = express()
+
+app.use(cors())
 
 app.use(logger('dev'))
 app.use(bodyParser.json())
@@ -13,6 +17,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(cookieParser())
 
 app.use('/', routes)
+app.use('/sessions', sessionRoutes)
 
 // stop favicon error requests
 app.get('/favicon.ico', (req, res) => res.send(200))

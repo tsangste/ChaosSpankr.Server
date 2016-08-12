@@ -1,34 +1,36 @@
 {
-  "name": "chaosspankr",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
+    "name": "chaosspankr",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
     "start": "nodemon ./bin/www"
-  },
-  "dependencies": {
-    "body-parser": "~1.15.1",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.2.0",
-    "express": "~4.14.0",
-    "morgan": "~1.7.0"
-  },
-  "description": "ChaosSpankr Server",
-  "main": "app.js",
-  "devDependencies": {
-    "eslint": "^3.2.2",
-    "nodemon": "^1.10.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tsangste/ChaosSpankr.Server.git"
-  },
-  "keywords": [
-    "ChaoSpankr"
-  ],
-  "author": "JJLPRS",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/tsangste/ChaosSpankr.Home/issues"
-  },
-  "homepage": "https://github.com/tsangste/ChaosSpankr.Server#readme"
+    },
+    "dependencies": {
+        "body-parser": "~1.15.1",
+        "cookie-parser": "~1.4.3",
+        "cors": "^2.7.1",
+        "debug": "~2.2.0",
+        "express": "~4.14.0",
+        "morgan": "~1.7.0",
+        "shortid": "^2.2.6"
+    },
+    "description": "ChaosSpankr Server",
+    "main": "app.js",
+    "devDependencies": {
+        "eslint": "^3.2.2",
+        "nodemon": "^1.10.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/tsangste/ChaosSpankr.Server.git"
+    },
+    "keywords": [
+        "ChaoSpankr"
+    ],
+    "license": "MIT",
+    "author": "JJLPRS",
+    "bugs": {
+        "url": "https://github.com/tsangste/ChaosSpankr.Home/issues"
+    },
+    "homepage": "https://github.com/tsangste/ChaosSpankr.Server#readme"
 }
