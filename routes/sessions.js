@@ -64,7 +64,7 @@ router.put('/', (req, res) => {
         return
     }
 
-    var isValidState = sessionConstants.VALID_STATES.indexOf(state) > -1
+    let isValidState = sessionConstants.VALID_STATES.indexOf(state) > -1
 
     if (!isValidState) {
         res.status(500)
@@ -92,14 +92,14 @@ router.put('/', (req, res) => {
 router.delete('/', (req, res) => {
     let sessionId = req.body.sessionId
 
-    console.log()
-
     if (sessionId === '') {
         res.status(500)
         res.json({ message: "No session id received" })
 
         return
     }
+
+    console.log(`Removing session: '${sessionId}'`)
 
     if (!shortid.isValid(sessionId)) {
         res.status(500)
