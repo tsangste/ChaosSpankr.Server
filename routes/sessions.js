@@ -28,14 +28,7 @@ router.post('/', (req, res) => {
  exampleCall: curl -H "Content-Type: application/json" -X GET http://localhost:3000/sessions/H1tSBr9F
  */
 router.get('/:sessionId', (req, res) => {
-  let sessionId = req.params.sessionId || ''
-
-  if (sessionId === '') {
-    res.status(500)
-    res.json({message: "No session id received"})
-
-    return
-  }
+  let sessionId = req.params.sessionId
 
   if (sessionId !== sessionStore.id) {
     res.status(500)
@@ -89,15 +82,6 @@ router.put('/', (req, res) => {
  */
 router.delete('/', (req, res) => {
   let sessionId = req.body.sessionId
-
-  if (sessionId === '') {
-    res.status(500)
-    res.json({message: "No session id received"})
-
-    return
-  }
-
-  console.log(`Removing session: '${sessionId}'`)
 
   if (!shortid.isValid(sessionId)) {
     res.status(500)

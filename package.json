@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "watch": "./node_modules/.bin/mocha --reporter spec",    
+    "watchtests": "./node_modules/.bin/mocha --reporter spec --watch" 
   },
   "dependencies": {
     "body-parser": "~1.15.1",
@@ -18,7 +20,9 @@
   "main": "app.js",
   "devDependencies": {
     "eslint": "^3.2.2",
-    "nodemon": "^1.10.0"
+    "mocha": "^3.0.2",
+    "nodemon": "^1.10.0",
+    "supertest": "^2.0.0"
   },
   "repository": {
     "type": "git",
