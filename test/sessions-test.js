@@ -259,7 +259,7 @@ describe('Session Route', () => {
       sessionStore.state = sessionConstants.STATES.WAITING_FOR_USERS
       sessionStore.users = []
 
-      var userToAdd = { userId: 'someone@test.com' }
+      var userToAdd = { userId: 'someone@domain.com' }
 
       supertest(app)
         .put(`/sessions/${sessionStore.id}/user`)
@@ -319,6 +319,32 @@ describe('Session Route', () => {
         .expect((res) => assert.equal(res.body.message, `Email address '${userToAdd.userId}' is not valid`))
         .expect((res) => assert.equal(sessionStore.id, 'H1tSBr9F'))
         .expect((res) => assert.notInclude(sessionStore.users, userToAdd.userId))
+        .end((err, res) => {
+          if (err) {
+            return done(err)
+          }
+
+          done()
+        })
+    })
+
+    it('User should not be duplicated if already enrolled in session', (done) => {
+
+      sessionStore.id = 'H1tSBr9F'
+      sessionStore.state = sessionConstants.STATES.WAITING_FOR_USERS
+      sessionStore.users = ['someone@domain.com']
+
+      var userToAdd = { userId: 'someone@domain.com' }
+
+      supertest(app)
+        .put(`/sessions/${sessionStore.id}/user`)
+        .send(userToAdd)
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .expect((res) => assert.deepEqual(res.body, userToAdd))        
+        .expect((res) => assert.equal(sessionStore.id, 'H1tSBr9F'))
+        .expect((res) => assert.include(sessionStore.users, userToAdd.userId))
+        .expect((res) => assert.equal(sessionStore.users.length, 1))        
         .end((err, res) => {
           if (err) {
             return done(err)

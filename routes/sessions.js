@@ -13,7 +13,7 @@ let router = express.Router()
 router.post('/', (req, res) => {
   if (sessionStore.id !== '') {
     res.status(500)
-    res.json({message: "There is already a session running"})
+    res.json({ message: "There is already a session running" })
 
     return
   }
@@ -33,7 +33,7 @@ router.get('/:sessionId', (req, res) => {
 
   if (sessionId !== sessionStore.id) {
     res.status(500)
-    res.json({message: "Session Id does not match current session"})
+    res.json({ message: "Session Id does not match current session" })
 
     return
   }
@@ -51,7 +51,7 @@ router.put('/', (req, res) => {
 
   if (sessionId === '') {
     res.status(500)
-    res.json({message: "No session id received"})
+    res.json({ message: "No session id received" })
 
     return
   }
@@ -60,14 +60,14 @@ router.put('/', (req, res) => {
 
   if (!isValidState) {
     res.status(500)
-    res.json({message: "State is not valid"})
+    res.json({ message: "State is not valid" })
 
     return
   }
 
   if (sessionId !== sessionStore.id) {
     res.status(500)
-    res.json({message: "Session Id does not match current session"})
+    res.json({ message: "Session Id does not match current session" })
 
     return
   }
@@ -86,14 +86,14 @@ router.delete('/', (req, res) => {
 
   if (!shortid.isValid(sessionId)) {
     res.status(500)
-    res.json({message: "Session Id is not valid"})
+    res.json({ message: "Session Id is not valid" })
 
     return
   }
 
   if (sessionId !== sessionStore.id) {
     res.status(500)
-    res.json({message: "Session Id does not match current session"})
+    res.json({ message: "Session Id does not match current session" })
 
     return
   }
@@ -118,21 +118,24 @@ router.put('/:sessionId/user/', (req, res) => {
 
   if (!isValidUserId) {
     res.status(422)
-    res.json({message: `Email address '${userId}' is not valid`})
+    res.json({ message: `Email address '${userId}' is not valid` })
 
     return
   }
 
   if (sessionId !== sessionStore.id) {
     res.status(500)
-    res.json({message: "Session Id does not match current session"})
+    res.json({ message: "Session Id does not match current session" })
 
     return
   }
 
-  sessionStore.users.push(userId);
+  let alreadyContainsUser = sessionStore.users.indexOf(userId) > -1
+  if (!alreadyContainsUser) {
+    sessionStore.users.push(userId);
+  }
 
-  res.json({userId})
+  res.json({ userId })
 })
 
 module.exports = router
