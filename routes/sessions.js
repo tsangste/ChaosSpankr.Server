@@ -2,6 +2,7 @@ let express = require('express')
 let shortid = require('shortid')
 let sessionConstants = require('../constants/session')
 let sessionStore = require('../session-store')
+let validtor = require('validator')
 
 let router = express.Router()
 
@@ -103,6 +104,35 @@ router.delete('/', (req, res) => {
 
   res.status(200)
   res.json({})
+})
+
+/*
+ Update a session
+ exampleCall: curl -H "Content-Type: application/json" -X PUT -d '{"userId": "someone@domain.com" }' http://localhost:3000/sessions/H1tSBr9F/user/
+ */
+router.put('/:sessionId/user/', (req, res) => {
+  let sessionId = req.params.sessionId
+  let userId = req.body.userId || ''
+
+  let isValidUserId = validtor.isEmail(userId)
+
+  if (!isValidUserId) {
+    res.status(422)
+    res.json({message: `Email address '${userId}' is not valid`})
+
+    return
+  }
+
+  if (sessionId !== sessionStore.id) {
+    res.status(500)
+    res.json({message: "Session Id does not match current session"})
+
+    return
+  }
+
+  sessionStore.users.push(userId);
+
+  res.json({userId})
 })
 
 module.exports = router
