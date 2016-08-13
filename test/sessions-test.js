@@ -171,6 +171,84 @@ describe('Session Route', () => {
           done()
         })
     })
+
+  })
+
+  describe('Delete', () => {
+
+    it('session should be removed when id matches', (done) => {
+
+      sessionStore.id = 'H1tSBr9F'
+      sessionStore.state = sessionConstants.STATES.WAITING_FOR_USERS
+      sessionStore.users = ['Some Value']
+
+      var sessionToDelete = { sessionId: 'H1tSBr9F' }
+
+      supertest(app)
+        .delete('/sessions/')
+        .send(sessionToDelete)
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .expect((res) => assert.deepEqual(res.body, {}))
+        .expect((res) => assert.equal(sessionStore.id, ''))       
+        .expect((res) => assert.equal(sessionStore.state, null))
+        .expect((res) => assert.deepEqual(sessionStore.users, []))             
+        .end((err, res) => {
+          if (err) {
+            return done(err)
+          }
+
+          done()
+        })
+    })
+
+    it('session should not be removed when session id is not valid', (done) => {
+      
+      sessionStore.id = 'H1tSBr9F'
+      sessionStore.state = sessionConstants.STATES.WAITING_FOR_USERS
+      
+      var sessionToDelete = { sessionId: 'INVALID SESSION ID' }
+
+      supertest(app)
+        .delete('/sessions/')
+        .send(sessionToDelete)
+        .expect('Content-Type', /json/)
+        .expect(500)
+        .expect((res) => assert.deepEqual(sessionStore.id, 'H1tSBr9F'))
+        .expect((res) => assert.deepEqual(sessionStore.state, sessionConstants.STATES.WAITING_FOR_USERS))
+        .expect((res) => assert.equal(res.body.message, 'Session Id is not valid'))     
+        .end((err, res) => {
+          if (err) {
+            return done(err)
+          }
+
+          done()
+        })
+    })
+
+    it('session should not be removed when session id is not valid', (done) => {
+      
+      sessionStore.id = 'PPBqWA9'
+      
+      var sessionToDelete = { sessionId: 'H1tSBr9F' }
+
+      supertest(app)
+        .delete('/sessions/')
+        .send(sessionToDelete)
+        .expect('Content-Type', /json/)
+        .expect(500)
+        .expect((res) => assert.deepEqual(sessionStore.id, 'PPBqWA9'))
+        .expect((res) => assert.deepEqual(sessionStore.state, sessionConstants.STATES.WAITING_FOR_USERS))
+        .expect((res) => assert.equal(res.body.message, 'Session Id does not match current session'))        
+        .end((err, res) => {
+          if (err) {
+            return done(err)
+          }
+
+          done()
+        })
+    })
+
   })
 
 })

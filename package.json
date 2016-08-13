@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "watch": "./node_modules/.bin/mocha --reporter spec",    
+    "watchtests": "./node_modules/.bin/mocha --reporter spec --watch" 
   },
   "dependencies": {
     "body-parser": "~1.15.1",

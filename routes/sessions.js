@@ -83,15 +83,6 @@ router.put('/', (req, res) => {
 router.delete('/', (req, res) => {
   let sessionId = req.body.sessionId
 
-  if (sessionId === '') {
-    res.status(500)
-    res.json({message: "No session id received"})
-
-    return
-  }
-
-  console.log(`Removing session: '${sessionId}'`)
-
   if (!shortid.isValid(sessionId)) {
     res.status(500)
     res.json({message: "Session Id is not valid"})
