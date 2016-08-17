@@ -1,7 +1,7 @@
 let supertest = require('supertest')
 var assert = require('chai').assert;
 
-let app = require('../app')
+let app = require('../app').app
 let sessionConstants = require('../constants/session')
 let sessionStore = require('../session-store')
 
@@ -341,10 +341,10 @@ describe('Session Route', () => {
         .send(userToAdd)
         .expect('Content-Type', /json/)
         .expect(200)
-        .expect((res) => assert.deepEqual(res.body, userToAdd))        
+        .expect((res) => assert.deepEqual(res.body, userToAdd))
         .expect((res) => assert.equal(sessionStore.id, 'H1tSBr9F'))
         .expect((res) => assert.include(sessionStore.users, userToAdd.userId))
-        .expect((res) => assert.equal(sessionStore.users.length, 1))        
+        .expect((res) => assert.equal(sessionStore.users.length, 1))
         .end((err, res) => {
           if (err) {
             return done(err)

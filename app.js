@@ -1,20 +1,26 @@
 let express = require('express')
+let http = require('http')
 let logger = require('morgan')
 let cookieParser = require('cookie-parser')
 let bodyParser = require('body-parser')
 let cors = require('cors')
 
+let socketIoMiddleware = require('./middleware/socketio')
 let routes = require('./routes/index')
 let sessionRoutes = require('./routes/sessions')
 
 let app = express()
+let server = require('http').Server(app);
+let io = require('socket.io')(server);
 
 app.use(cors())
 
 app.use(logger('dev'))
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
+
+app.use(socketIoMiddleware(io));
 
 app.use('/', routes)
 app.use('/sessions', sessionRoutes)
@@ -53,4 +59,4 @@ app.use((err, req, res) => {
   })
 })
 
-module.exports = app
+module.exports = { app: app, server: server }

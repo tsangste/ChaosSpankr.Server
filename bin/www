@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-let app = require('../app')
+let app = require('../app').app
 let debug = require('debug')('ChaosSpankr.Server:server')
 let http = require('http')
 
@@ -15,15 +15,8 @@ let http = require('http')
 let port = normalizePort(process.env.PORT || '3000')
 app.set('port', port)
 
-/**
- * Create HTTP server.
- */
 
-let server = http.createServer(app)
-
-/**
- * Listen on provided port, on all network interfaces.
- */
+let server = require('../app').server
 
 server.listen(3000, "0.0.0.0") // makes it available accross the network: http://stackoverflow.com/a/15493030/3104762
 
