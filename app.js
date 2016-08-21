@@ -13,6 +13,8 @@ let app = express()
 let server = require('http').Server(app);
 let io = require('socket.io')(server);
 
+server.listen(3000, "0.0.0.0") // makes it available accross the network: http://stackoverflow.com/a/15493030/3104762
+
 app.use(cors())
 
 app.use(logger('dev'))
