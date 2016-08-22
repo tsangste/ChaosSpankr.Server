@@ -1,5 +1,5 @@
 let supertest = require('supertest')
-let app = require('../app')
+let app = require('../app').app
 
 describe('Default Route', () => {
 

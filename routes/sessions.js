@@ -135,6 +135,7 @@ router.put('/:sessionId/user/', (req, res) => {
     sessionStore.users.push(userId);
   }
 
+  res.io.sockets.emit('broadcast-user-joined', { userId: userId })
   res.json({ userId })
 })
 

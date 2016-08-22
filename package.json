@@ -15,6 +15,7 @@
     "express": "~4.14.0",
     "morgan": "~1.7.0",
     "shortid": "^2.2.6",
+    "socket.io": "^1.4.8",
     "validator": "^5.5.0"
   },
   "description": "ChaosSpankr Server",
