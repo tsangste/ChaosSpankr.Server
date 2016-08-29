@@ -181,6 +181,7 @@ describe('Session Route', () => {
       sessionStore.id = 'H1tSBr9F'
       sessionStore.state = sessionConstants.STATES.WAITING_FOR_USERS
       sessionStore.users = ['Some Value']
+      sessionStore.cards = [{ userId: 'someone@domain.com', cardValue: 3 }]
 
       var sessionToDelete = { sessionId: 'H1tSBr9F' }
 
@@ -193,6 +194,7 @@ describe('Session Route', () => {
         .expect((res) => assert.equal(sessionStore.id, ''))
         .expect((res) => assert.equal(sessionStore.state, null))
         .expect((res) => assert.deepEqual(sessionStore.users, []))
+        .expect((res) => assert.deepEqual(sessionStore.cards, []))
         .end((err, res) => {
           if (err) {
             return done(err)
@@ -240,7 +242,7 @@ describe('Session Route', () => {
         .expect((res) => assert.deepEqual(sessionStore.id, 'PPBqWA9'))
         .expect((res) => assert.deepEqual(sessionStore.state, sessionConstants.STATES.WAITING_FOR_USERS))
         .expect((res) => assert.equal(res.body.message, 'Session Id does not match current session'))
-        .end((err, res) => {
+       .end((err, res) => {
           if (err) {
             return done(err)
           }
@@ -341,10 +343,10 @@ describe('Session Route', () => {
         .send(userToAdd)
         .expect('Content-Type', /json/)
         .expect(200)
-        .expect((res) => assert.deepEqual(res.body, userToAdd))        
+        .expect((res) => assert.deepEqual(res.body, userToAdd))
         .expect((res) => assert.equal(sessionStore.id, 'H1tSBr9F'))
         .expect((res) => assert.include(sessionStore.users, userToAdd.userId))
-        .expect((res) => assert.equal(sessionStore.users.length, 1))        
+        .expect((res) => assert.equal(sessionStore.users.length, 1))
         .end((err, res) => {
           if (err) {
             return done(err)
