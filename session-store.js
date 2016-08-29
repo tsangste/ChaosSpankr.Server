@@ -1,7 +1,8 @@
 let activeSession = {
   id: "",
   state: null,
-  users: []
+  users: [],
+  cards: []
 }
 
 module.exports = activeSession

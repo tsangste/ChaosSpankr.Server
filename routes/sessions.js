@@ -101,6 +101,7 @@ router.delete('/', (req, res) => {
   sessionStore.id = ""
   sessionStore.state = null
   sessionStore.users = []
+  sessionStore.cards = []
 
   res.status(200)
   res.json({})
@@ -136,6 +137,41 @@ router.put('/:sessionId/user/', (req, res) => {
   }
 
   res.json({ userId })
+})
+
+/*
+ Update a session
+ exampleCall: curl -H "Content-Type: application/json" -X PUT -d '{"userId": "someone@domain.com" }' http://localhost:3000/sessions/H1tSBr9F/user/
+ */
+router.put('/:sessionId/user/:userId', (req, res) => {
+  let sessionId = req.params.sessionId
+  let userId = req.params.userId
+  let cardValue = req.body.cardValue;
+
+  if (sessionId !== sessionStore.id) {
+    res.status(500)
+    res.json({ message: "Session Id does not match current session" })
+
+    return
+  }
+
+  let alreadyContainsUser = sessionStore.users.indexOf(userId) > -1
+  if (!alreadyContainsUser) {
+    res.status(404)
+    res.json({ message: 'User could not be found in session' })
+    return
+  }
+
+  var existingUserSelection = sessionStore.cards.filter((card) => card.userId === userId)
+
+  if(existingUserSelection.length === 0){
+    sessionStore.cards.push({ userId, cardValue })
+  }
+  else{
+    existingUserSelection[0].cardValue = cardValue;
+  }
+
+  res.json({ userId, cardValue })
 })
 
 module.exports = router
